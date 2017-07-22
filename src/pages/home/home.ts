@@ -21,10 +21,8 @@ export class HomePage {
 
       this.WooCommerce = WC({
         url: "http://localhost/wordpress",
-        // consumerKey: "ck_f42939ed59d4fdd0ea63250f7068a555e6e56fe4",
-        // consumerSecret: "cs_44b2acab21161515db8cf027a39e0b26570826e9"
-        consumerKey: "ck_beede5b07f003b6de16315ec5fcede47039df365",
-        consumerSecret: "cs_fd6549ffb8247fe2656ee99c6b240c563045356b"
+        consumerKey: "ck_3da6512125c03d1118fa8d4f45a02659a1450439",
+        consumerSecret: "cs_3a9244ca676b1a5d847b477a177639ee4872bc40"
       });
 
       this.loadMoreProducts(null);
