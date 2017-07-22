@@ -51,7 +51,7 @@ export class HomePage {
   loadMoreProducts(event){
 
     if(event==null){
-      this.page = 1;
+      this.page = 2;
       this.moreProducts =[];
     }
     else
