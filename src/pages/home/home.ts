@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, ToastController} from 'ionic-angular';
+import { ProductDetailsPage } from '../product-details/product-details';
+
+
 import * as WC from 'woocommerce-api';
 
 @Component({
@@ -28,7 +31,6 @@ export class HomePage {
       this.loadMoreProducts(null);
 
       this.WooCommerce.getAsync("products").then((data) => {
-        console.log("Passed here");
         console.log(JSON.parse(data.body));
 
         this.products = JSON.parse(data.body).products;
@@ -58,7 +60,6 @@ export class HomePage {
         this.page ++;
 
     this.WooCommerce.getAsync("products?page=" + this.page).then((data) => {
-      console.log("Passed here");
       console.log(JSON.parse(data.body));
 
       this.moreProducts = this.moreProducts.concat(JSON.parse(data.body).products);
@@ -78,5 +79,7 @@ export class HomePage {
     console.log(err)
     })
   }
-
+    openProductPage(product){
+      this.navCtrl.push(ProductDetailsPage, {"product": product});
+    }
 }
