@@ -33,7 +33,7 @@
       </ion-item>
       <ion-item>
           <ion-label>Confirm Password</ion-label>
-          <ion-input type="password" ([ngModel])="newUser.confirm_password"></ion-input>
+          <ion-input type="text" ([ngModel])="newUser.confirm_password"></ion-input>
       </ion-item>
 
             <!--Billing Details  -->
@@ -73,7 +73,7 @@
         </ion-item>
         <ion-item>
             <ion-label>Postal Code</ion-label>
-            <ion-input type="number" ([ngModel])="newUser.billing_address.postal_code"></ion-input>
+            <ion-input type="number" ([ngModel])="newUser.billing_address.postalcode"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>Phone</ion-label>
@@ -121,7 +121,7 @@
     </ion-item>
     <ion-item *ngIf="!billing_shipping_same">
         <ion-label>Postal Code</ion-label>
-        <ion-input type="number" ([ngModel])="newUser.shipping_address.postal_code"></ion-input>
+        <ion-input type="number" ([ngModel])="newUser.shipping_address.postalcode"></ion-input>
     </ion-item>
     <ion-item *ngIf="!billing_shipping_same">
         <ion-label>Phone</ion-label>

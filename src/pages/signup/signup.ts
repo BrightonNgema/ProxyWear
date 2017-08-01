@@ -21,8 +21,8 @@ export class SignupPage {
 
     this.WooCommerce = WC({
       url: "http://localhost/wordpress",
-      consumerKey: "ck_4d35c57d4739e74396bf23ed0c79df26d7c5f61b",
-      consumerSecret: "cs_7fff035883dafb4032179e7842a3b10df4d71ef4"
+      consumerKey: "ck_84b7cac1100cc977634f6b57ede234efeff84ff2",
+      consumerSecret: "cs_3923902d53aa49a7bdef82eb7f59d468e804320c"
     });
   }
 
@@ -37,8 +37,8 @@ export class SignupPage {
   checkEmail(){
 
     let validEmail = false;
-    let reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+    let reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(reg.test(this.newUser.email)){
       //email looks valid
@@ -63,7 +63,10 @@ export class SignupPage {
           }).present();
         }
         console.log(validEmail);
-      });
+
+      })
+
+
 
     } else {
       validEmail = false;
@@ -71,10 +74,12 @@ export class SignupPage {
         message: "Invalid Email. Please check.",
         showCloseButton: true
       }).present();
-    }
       console.log(validEmail);
     }
-    signup(){
+
+  }
+
+  signup(){
 
       let customerData = {
         customer : {}
@@ -86,56 +91,60 @@ export class SignupPage {
         "last_name": this.newUser.last_name,
         "username": this.newUser.username,
         "password": this.newUser.password,
-        "billing_address":{
-            "first_name": this.newUser.first_name,
-            "last_name": this.newUser.last_name,
-            "company": "",
-            "address_1": this.newUser.billing_address.address_1,
-            "address_2": this.newUser.billing_address.address_2,
-            "city": this.newUser.billing_address.city,
-            "state" :this.newUser.billing_address.state,
-            "postcode":this.newUser.billing_address.postcode,
-            "country": this.newUser.billing_address.country,
-            "email" : this.newUser.email,
-            "phone": this.newUser.billing_address.phone
+        "billing_address": {
+          "first_name": this.newUser.first_name,
+          "last_name": this.newUser.last_name,
+          "company": "",
+          "address_1": this.newUser.billing_address.address_1,
+          "address_2": this.newUser.billing_address.address_2,
+          "city": this.newUser.billing_address.city,
+          "state": this.newUser.billing_address.state,
+          "postcode": this.newUser.billing_address.postcode,
+          "country": this.newUser.billing_address.country,
+          "email": this.newUser.email,
+          "phone": this.newUser.billing_address.phone
         },
-        "shipping_address":{
-              "first_name": this.newUser.first_name,
-              "last_name": this.newUser.last_name,
-              "company": "",
-              "address_1": this.newUser.shipping_address.address_1,
-              "address_2": this.newUser.shipping_address.address_2,
-              "city": this.newUser.shipping_address.city,
-              "state": this.newUser.shipping_address.state,
-              "postcode":this.newUser.shipping_address.postcode,
-              "country": this.newUser.shipping_address.country
+        "shipping_address": {
+          "first_name": this.newUser.first_name,
+          "last_name": this.newUser.last_name,
+          "company": "",
+          "address_1": this.newUser.shipping_address.address_1,
+          "address_2": this.newUser.shipping_address.address_2,
+          "city": this.newUser.shipping_address.city,
+          "state": this.newUser.shipping_address.state,
+          "postcode": this.newUser.shipping_address.postcode,
+          "country": this.newUser.shipping_address.country
         }
       }
+
       if(this.billing_shipping_same){
         this.newUser.shipping_address = this.newUser.shipping_address;
-      }
-      this.WooCommerce.postAsync('customers', customerData).then((data)=>{
+      };
 
-        console.log(JSON.parse(data.body));
-        // let response = (JSON.parse(data.body));
-        //
+      this.WooCommerce.postAsync('customers', customerData).then( (data) => {
+
+      console.log(JSON.parse(data.body));
+
         // if(response.customer){
         //   this.alertCtrl.create({
-        //     title : "Account Created",
-        //     message: "Your account has been created successfully!, Please login to proceed.",
+        //     title: "Account Created",
+        //     message: "Your account has been created successfully! Please login to proceed.",
         //     buttons: [{
-        //       text:"Login",
-        //       handler:()=>{
-        //         //Todo
+        //       text: "Login",
+        //       handler: ()=> {
+    //         //TODO
         //       }
         //     }]
         //   }).present();
-        // }else if (response.errors){
+        // } else if(response.errors){
         //   this.toastCtrl.create({
         //     message: response.errors[0].message,
-        //     showCloseButton:true
+        //     showCloseButton: true
         //   }).present();
         // }
-      });
-  }
-  }
+
+      })
+
+    }
+
+}
