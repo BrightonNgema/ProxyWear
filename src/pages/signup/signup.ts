@@ -21,8 +21,8 @@ export class SignupPage {
 
     this.WooCommerce = WC({
       url: "http://localhost/wordpress",
-      consumerKey: "ck_3da6512125c03d1118fa8d4f45a02659a1450439",
-      consumerSecret: "cs_3a9244ca676b1a5d847b477a177639ee4872bc40"
+      consumerKey: "ck_4d35c57d4739e74396bf23ed0c79df26d7c5f61b",
+      consumerSecret: "cs_7fff035883dafb4032179e7842a3b10df4d71ef4"
     });
   }
 
@@ -71,11 +71,71 @@ export class SignupPage {
         message: "Invalid Email. Please check.",
         showCloseButton: true
       }).present();
+    }
       console.log(validEmail);
     }
+    signup(){
 
+      let customerData = {
+        customer : {}
+      }
+
+      customerData.customer = {
+        "email": this.newUser.email,
+        "first_name": this.newUser.first_name,
+        "last_name": this.newUser.last_name,
+        "username": this.newUser.username,
+        "password": this.newUser.password,
+        "billing_address":{
+            "first_name": this.newUser.first_name,
+            "last_name": this.newUser.last_name,
+            "company": "",
+            "address_1": this.newUser.billing_address.address_1,
+            "address_2": this.newUser.billing_address.address_2,
+            "city": this.newUser.billing_address.city,
+            "state" :this.newUser.billing_address.state,
+            "postcode":this.newUser.billing_address.postcode,
+            "country": this.newUser.billing_address.country,
+            "email" : this.newUser.email,
+            "phone": this.newUser.billing_address.phone
+        },
+        "shipping_address":{
+              "first_name": this.newUser.first_name,
+              "last_name": this.newUser.last_name,
+              "company": "",
+              "address_1": this.newUser.shipping_address.address_1,
+              "address_2": this.newUser.shipping_address.address_2,
+              "city": this.newUser.shipping_address.city,
+              "state": this.newUser.shipping_address.state,
+              "postcode":this.newUser.shipping_address.postcode,
+              "country": this.newUser.shipping_address.country
+        }
+      }
+      if(this.billing_shipping_same){
+        this.newUser.shipping_address = this.newUser.shipping_address;
+      }
+      this.WooCommerce.postAsync('customers', customerData).then((data)=>{
+
+        console.log(JSON.parse(data.body));
+        // let response = (JSON.parse(data.body));
+        //
+        // if(response.customer){
+        //   this.alertCtrl.create({
+        //     title : "Account Created",
+        //     message: "Your account has been created successfully!, Please login to proceed.",
+        //     buttons: [{
+        //       text:"Login",
+        //       handler:()=>{
+        //         //Todo
+        //       }
+        //     }]
+        //   }).present();
+        // }else if (response.errors){
+        //   this.toastCtrl.create({
+        //     message: response.errors[0].message,
+        //     showCloseButton:true
+        //   }).present();
+        // }
+      });
   }
-
-
-
-}
+  }

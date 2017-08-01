@@ -21,7 +21,7 @@
       </ion-item>
       <ion-item>
       <ion-label>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="newUser.email" (ionBlur)="checkEmail()"></ion-input>
+      <ion-input type="email" [(ngModel)]="newUser.email" (blur)="checkEmail()"></ion-input>
       </ion-item>
       <ion-item>
           <ion-label>Username</ion-label>
@@ -35,6 +35,7 @@
           <ion-label>Confirm Password</ion-label>
           <ion-input type="password" ([ngModel])="newUser.confirm_password"></ion-input>
       </ion-item>
+
             <!--Billing Details  -->
 <!-- ////////////////////////////////////////////////////////////////////////////////// -->
         <ion-item-divider color="danger">Billing Details</ion-item-divider>
@@ -53,8 +54,8 @@
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label>Province</ion-label>
-            <ion-select ([ngModel])="newUser.billing_address.province">
+            <ion-label>State</ion-label>
+            <ion-select ([ngModel])="newUser.billing_address.state">
               <ion-option value="Gauteng" selected="true">Gauteng</ion-option>
               <ion-option value="Cape Town" selected="true">Cape Town</ion-option>
               <ion-option value="KZN" selected="true">KZN</ion-option>
@@ -101,8 +102,8 @@
         </ion-select>
     </ion-item>
     <ion-item *ngIf="!billing_shipping_same">
-        <ion-label>Province</ion-label>
-        <ion-select ([ngModel])="newUser.shipping_address.province">
+        <ion-label>State</ion-label>
+        <ion-select ([ngModel])="newUser.shipping_address.state">
           <ion-option value="Gauteng" selected="true">Gauteng</ion-option>
           <ion-option value="Cape Town" selected="true">Cape Town</ion-option>
           <ion-option value="KZN" selected="true">KZN</ion-option>
