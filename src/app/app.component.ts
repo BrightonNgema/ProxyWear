@@ -13,7 +13,7 @@ import {SignupPage}from '../pages/signup/signup';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SignupPage;
+  rootPage: any =MenuPage;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();

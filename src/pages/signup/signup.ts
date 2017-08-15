@@ -121,27 +121,29 @@ export class SignupPage {
         this.newUser.shipping_address = this.newUser.shipping_address;
       };
 
-      this.WooCommerce.postAsync('customers', customerData).then( (data) => {
+      this.WooCommerce.postAsync('customers', customerData).then((data) => {
 
-      console.log(JSON.parse(data.body));
+        console.log((JSON.parse(data.body)));
 
-        // if(response.customer){
-        //   this.alertCtrl.create({
-        //     title: "Account Created",
-        //     message: "Your account has been created successfully! Please login to proceed.",
-        //     buttons: [{
-        //       text: "Login",
-        //       handler: ()=> {
-    //         //TODO
-        //       }
-        //     }]
-        //   }).present();
-        // } else if(response.errors){
-        //   this.toastCtrl.create({
-        //     message: response.errors[0].message,
-        //     showCloseButton: true
-        //   }).present();
-        // }
+      let response = (JSON.parse(data.body));
+
+        if(response.customer){
+          this.alertCtrl.create({
+            title: "Account Created",
+            message: "Your account has been created successfully! Please login to proceed.",
+            buttons: [{
+              text: "Login",
+              handler: ()=> {
+            //TODO
+              }
+            }]
+          }).present();
+        } else if(response.errors){
+          this.toastCtrl.create({
+            message: response.errors[0].message,
+            showCloseButton: true
+          }).present();
+        }
 
       })
 
