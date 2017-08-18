@@ -1,11 +1,12 @@
 import { Component , ViewChild} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController} from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { CartPage } from '../cart/cart';
 import * as WC from 'woocommerce-api';
 import { ProductsByCategoryPage } from '../products-by-category/products-by-category';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-menu',
@@ -16,9 +17,12 @@ export class MenuPage {
     homePage: Component;
     WooCommerce: any;
     categories: any;
+    loggedIn:boolean;
+    user:any;
+
     @ViewChild('content') childNavCtrl : NavController;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public modalCtrl:ModalController) {
       this.homePage = HomePage
       this.categories =[];
 
@@ -29,7 +33,7 @@ export class MenuPage {
       });
 
       this.WooCommerce.getAsync("products/categories").then((data) => {
-        console.log(JSON.parse(data.body).product_categories);
+
 
         let temp : any[]= JSON.parse(data.body).product_categories;
 
@@ -53,8 +57,25 @@ export class MenuPage {
       });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MenuPage');
+  ionViewDidEnter() {
+    this.storage.ready().then(()=>{
+      this.storage.get("userLoginInfo").then((userLoginInfo)=>{
+
+        if(userLoginInfo != null){
+
+          this.user = userLoginInfo.user;
+
+
+
+          this.loggedIn = true;
+        }else{
+      
+          this.user = {};
+          this.loggedIn = false;
+        }
+
+      })
+    })
   }
 
   openCategoryPage(category){
@@ -66,6 +87,15 @@ export class MenuPage {
       this.navCtrl.push(SignupPage);
     }if(pageName == "login"){
       this.navCtrl.push(LoginPage);
+    }
+    if(pageName == 'logout'){
+      this.storage.remove("userLoginInfo").then(()=>{
+        this.user = {};
+        this.loggedIn = false;
+      })
+    }if(pageName == 'cart'){
+      let modal = this.modalCtrl.create(CartPage);
+      modal.present();
     }
   }
 }
